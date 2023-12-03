@@ -6,15 +6,20 @@ using UnityEngine;
 
 public class SpiralMovement : MonoBehaviour
 {
+    [Header("Spiral Settings")]
     [SerializeField] private GameObject blackHole;
     [SerializeField] private float speed = 9f;
+
+    [Space]
     [Header("Rotation degree")]
     [SerializeField] private int xRotation;
     [SerializeField] private int yRotation = 80;
     [SerializeField] private int zRotation;
+    
     private Vector3 direction;
     private float distanceThisFrame;
-    private bool spiralMovement = true;
+    private bool spiralMovement = false;
+    private Vector3 mousePosition;
 
     // Start is called before the first frame update
     void Start()
@@ -45,8 +50,49 @@ public class SpiralMovement : MonoBehaviour
         if (direction.magnitude <= 0.3f)
         {
             spiralMovement = false;
-            transform.position = Vector3.MoveTowards(transform.position, blackHole.transform.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, blackHole.transform.position, distanceThisFrame);
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
+    private Vector3 GetMousePos()
+    {
+        return Camera.main.WorldToScreenPoint(transform.position);
+    }
+
+    private void OnMouseDown() 
+    {
+        mousePosition = Input.mousePosition - GetMousePos();
+    }
+
+    private void OnMouseDrag() 
+    {
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
+    }
+
+    private void OnMouseUp()
+    {
+        spiralMovement = true;
+        GetComponent<MeshCollider>().enabled = false;
+    }
+
+    /*
+    private void OnMouseEnter() {
+        GetComponent<Animator>().SetBool("pulsing", true);
+    }
+
+    private void OnMouseExit() {
+        GetComponent<Animator>().SetBool("pulsing", false);
+    }
+    */
+
+    // private void OnMouseEnter() 
+    // {
+    //     transform.localScale = new Vector3 (5f, 5f, 5f);
+    // }
+
+    // private void OnMouseExit()
+    // {
+    //     transform.localScale = new Vector3 (1f, 1f, 1f);
+    // }
 }

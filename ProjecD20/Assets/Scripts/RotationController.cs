@@ -6,31 +6,44 @@ using UnityEngine.UIElements;
 public class RotationController : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 1f;
-    [SerializeField] private int diceResult = 1;
+    [SerializeField] private int diceResult = 20;
     [SerializeField] private GameObject blackHole;
-    private bool isMoving = true;
-    float r;
+    private bool isMoving = false;
+    private bool startedRoll = false;
+    Vector3 startPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position != blackHole.transform.position)
+        // Check if dice was rolled yet and its position changed
+        if (!startedRoll && (transform.position != startPosition))
+        {
+            isMoving = true;
+            startedRoll = true;
+        }
+
+        // While dice is not in place continue rolling
+        if (isMoving && (transform.position != blackHole.transform.position))
         {
             transform.Rotate(rotationSpeed, 0, 0);            
         } 
+
+        // When dice is in place stop rolling and turn on the right side 
         else if (isMoving)
         {
             isMoving = false;
             SetRandomResult();
             SetSide();
         }
+
     }
 
+    // Turns dice on the right side
     public void SetSide()
     {
         switch (diceResult)
@@ -120,11 +133,13 @@ public class RotationController : MonoBehaviour
         }
     }
 
+    // Sets dice result on the roll
     public void SetResult(int result)
     {
         diceResult = result;
     }
 
+    // Sets random dice result
     public void SetRandomResult()
     {
         diceResult = Random.Range(1, 20);

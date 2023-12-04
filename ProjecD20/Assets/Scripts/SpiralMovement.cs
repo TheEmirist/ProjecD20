@@ -75,24 +75,4 @@ public class SpiralMovement : MonoBehaviour
         spiralMovement = true;
         GetComponent<MeshCollider>().enabled = false;
     }
-
-    /*
-    private void OnMouseEnter() {
-        GetComponent<Animator>().SetBool("pulsing", true);
-    }
-
-    private void OnMouseExit() {
-        GetComponent<Animator>().SetBool("pulsing", false);
-    }
-    */
-
-    // private void OnMouseEnter() 
-    // {
-    //     transform.localScale = new Vector3 (5f, 5f, 5f);
-    // }
-
-    // private void OnMouseExit()
-    // {
-    //     transform.localScale = new Vector3 (1f, 1f, 1f);
-    // }
 }

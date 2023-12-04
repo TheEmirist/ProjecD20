@@ -11,7 +11,8 @@ public class PulseController : MonoBehaviour
 
     private Vector3 startSize;
     private Vector3 targetSize;
-    private float m_scrollAmount;
+    private float scrollAmount;
+    private bool revertSize = false;
 
     void InitPulseEffectVariables()
     {
@@ -28,7 +29,10 @@ public class PulseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (revertSize)
+        {
+            RevertSize();
+        }
     }
 
     void OnMouseOver()
@@ -38,8 +42,23 @@ public class PulseController : MonoBehaviour
 
     void PulseTheDice()
     {
-        m_scrollAmount += Time.deltaTime * expandSpeed;
-        float percent = expandCurve.Evaluate(m_scrollAmount);
+        scrollAmount += Time.deltaTime * expandSpeed;
+        float percent = expandCurve.Evaluate(scrollAmount);
         transform.localScale = Vector3.Lerp(startSize, targetSize, percent);
+    }
+
+    void OnMouseExit()
+    {
+        revertSize = true;
+    }
+
+    void OnMouseEnter()
+    {
+        revertSize = false;
+    }
+
+    void RevertSize()
+    {
+        transform.localScale = Vector3.Lerp(transform.localScale, startSize, Time.deltaTime * expandSpeed);
     }
 }

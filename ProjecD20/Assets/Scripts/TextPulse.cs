@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PulseController : MonoBehaviour
+public class TextPulse : MonoBehaviour
 {
     [Header("Pulse variables")]
     [SerializeField] private AnimationCurve expandCurve;
@@ -35,29 +35,15 @@ public class PulseController : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
+    // void PulseTheDice()
+    // {
+    //     scrollAmount += Time.deltaTime * expandSpeed;
+    //     float percent = expandCurve.Evaluate(scrollAmount);
+    //     transform.localScale = Vector3.Lerp(startSize, targetSize, percent);
+    // }
+    void EnlargeText()
     {
-        PulseTheDice();
-    }
-
-    // Allows dice pulse animation
-    void PulseTheDice()
-    {
-        scrollAmount += Time.deltaTime * expandSpeed;
-        float percent = expandCurve.Evaluate(scrollAmount);
-        transform.localScale = Vector3.Lerp(startSize, targetSize, percent);
-    }
-
-
-    // Makes dice small again after pulsation ends
-    void OnMouseExit()
-    {
-        revertSize = true;
-    }
-
-    void OnMouseEnter()
-    {
-        revertSize = false;
+        transform.localScale = Vector3.Lerp(startSize, targetSize, Time.deltaTime * expandSpeed);
     }
 
     void RevertSize()

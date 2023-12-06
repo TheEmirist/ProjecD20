@@ -6,8 +6,9 @@ using UnityEngine.UIElements;
 public class RotationController : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 1f;
-    [SerializeField] private int diceResult = 20;
+    [SerializeField] private int diceResult;
     [SerializeField] private GameObject blackHole;
+    [SerializeField] private Menu menu;
     private bool isMoving = false;
     private bool startedRoll = false;
     Vector3 startPosition;
@@ -129,8 +130,12 @@ public class RotationController : MonoBehaviour
                 break;
             
             default:
+                Debug.Log("Wrong diceResult in RotationController script");
                 return;
         }
+
+        menu.ShowResult();
+        menu.CheckSuccess();
     }
 
     // Sets dice result on the roll
@@ -142,6 +147,11 @@ public class RotationController : MonoBehaviour
     // Sets random dice result
     public void SetRandomResult()
     {
-        diceResult = Random.Range(1, 20);
+        diceResult = Random.Range(1, 21);
+    }
+
+    public int GetResult()
+    {
+        return diceResult;
     }
 }

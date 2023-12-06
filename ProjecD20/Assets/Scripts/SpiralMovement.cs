@@ -17,7 +17,6 @@ public class SpiralMovement : MonoBehaviour
     [SerializeField] private int yRotation = 80;
     [SerializeField] private int zRotation;
     
-    private Vector3 mouseDirection;
     private Vector3 direction; 
     private float distanceThisFrame;
     private bool spiralMovement = false;
@@ -32,8 +31,6 @@ public class SpiralMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetMouseDirection();
-
         if (spiralMovement)
         {
             // Calculate the direction vector from our object straight to the central point
@@ -59,11 +56,7 @@ public class SpiralMovement : MonoBehaviour
         }
     }
 
-    private void GetMouseDirection()
-    {
-        mouseDirection.x = Input.GetAxis("Mouse X");
-        //mouseDirection.z = Input.GetAxis("Mouse Z");
-    }
+    // Gets mouse position relative to camera
     private Vector3 GetMousePos()
     {
         return Camera.main.WorldToScreenPoint(transform.position);
@@ -74,75 +67,16 @@ public class SpiralMovement : MonoBehaviour
         mousePosition = Input.mousePosition - GetMousePos();
     }
 
+    // Allows to drag the dice
     private void OnMouseDrag() 
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
     }
 
+    // Sends the dice to roll and disallows player to touch it again
     private void OnMouseUp()
     {
-        ChooseRollDirection();
         spiralMovement = true;
         GetComponent<MeshCollider>().enabled = false;
-    }
-
-    private void RightTopCorner()
-    {
-        if (mouseDirection.x > 0)
-        {
-            return;
-        }
-        else 
-        {
-            yRotation *= -1;
-        }
-    }
-
-    private void RightDownCorner()
-    {
-        if (mouseDirection.x > 0)
-        {
-            yRotation *= -1;
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    // private void LeftDownCorner()
-    // {
-    //     if (mouseDirection.x > 0)
-    //     {
-    //         yRotation *= -1;
-    //     }
-    //     else
-    //     {
-    //         return;
-    //     }
-    // }
-
-    // private void LeftTopCorner()
-    // {
-    //     if (mouseDirection.x > 0)
-    //     {
-    //         return;
-    //     }
-    //     else
-    //     {
-    //         yRotation *= -1;
-    //     }
-    // }
-
-    private void ChooseRollDirection()
-    {
-        if (transform.position.x > 0)
-        {
-            RightTopCorner();
-        }
-        else
-        {
-            RightDownCorner();
-        }
     }
 }

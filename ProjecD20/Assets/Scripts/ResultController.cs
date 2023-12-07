@@ -22,6 +22,7 @@ public class ResultController : MonoBehaviour
 
     void DiceRolled()
     {
+        ModifyDiceResultWithItems();
         diceResultField.text = diceResult.ToString();
         CheckSuccess();
     }
@@ -45,6 +46,16 @@ public class ResultController : MonoBehaviour
     public static int GetDC()
     {
         return difficultyClass;
+    }
+
+    void ModifyDiceResultWithItems()
+    {
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+
+        foreach (GameObject item in items)
+        {
+            diceResult += item.GetComponent<ItemProperties>().itemBonus;
+        }
     }
 
     // Checks if the dice roll was successful

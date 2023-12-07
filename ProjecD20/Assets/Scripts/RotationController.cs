@@ -5,10 +5,11 @@ using UnityEngine.UIElements;
 
 public class RotationController : MonoBehaviour
 {
+    [Header("Rotation Settings")]
     [SerializeField] private float rotationSpeed = 1f;
-    [SerializeField] private int diceResult;
+    // public static int diceResult;
     [SerializeField] private GameObject blackHole;
-    [SerializeField] private Menu menu;
+
     private bool isMoving = false;
     private bool startedRoll = false;
     Vector3 startPosition;
@@ -38,7 +39,7 @@ public class RotationController : MonoBehaviour
         else if (isMoving)
         {
             isMoving = false;
-            SetRandomResult();
+            ResultController.SetRandomResult();
             SetSide();
         }
 
@@ -47,7 +48,7 @@ public class RotationController : MonoBehaviour
     // Turns dice on the right side
     public void SetSide()
     {
-        switch (diceResult)
+        switch (ResultController.diceResult)
         {
             case 1:
                 transform.localRotation = Quaternion.Euler(-110.962f, 120f, -57.948f);
@@ -134,24 +135,6 @@ public class RotationController : MonoBehaviour
                 return;
         }
 
-        menu.ShowResult();
-        menu.CheckSuccess();
-    }
-
-    // Sets dice result on the roll
-    public void SetResult(int result)
-    {
-        diceResult = result;
-    }
-
-    // Sets random dice result
-    public void SetRandomResult()
-    {
-        diceResult = Random.Range(1, 21);
-    }
-
-    public int GetResult()
-    {
-        return diceResult;
+        EventManager.SendDiceResult();
     }
 }

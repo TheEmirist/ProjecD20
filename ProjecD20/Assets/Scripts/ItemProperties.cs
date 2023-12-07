@@ -23,6 +23,13 @@ public class ItemProperties : MonoBehaviour
 
     void SetBonusField()
     {
-        itemBonusField.text = itemBonus.ToString();
+        if (itemBonus >= 0)
+        {
+            itemBonusField.text = "+" + itemBonus.ToString();
+        }
+        else
+        {
+            itemBonusField.text = itemBonus.ToString();
+        }
     }
 }

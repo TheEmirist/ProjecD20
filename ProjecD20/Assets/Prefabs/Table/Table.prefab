@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: blackHole
       value: 
       objectReference: {fileID: 7956389660313888529}
+    - target: {fileID: 106884158648119944, guid: 6c2793aa1de40b644ad04008c00f0bfa, type: 3}
+      propertyPath: rotationSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5848482178479882123, guid: 6c2793aa1de40b644ad04008c00f0bfa, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.81

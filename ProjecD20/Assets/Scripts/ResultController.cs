@@ -20,6 +20,7 @@ public class ResultController : MonoBehaviour
         EventManager.OnDiceRoll.AddListener(DiceRolled);
     }
 
+    // Call when dice is rolled
     void DiceRolled()
     {
         ModifyDiceResultWithItems();

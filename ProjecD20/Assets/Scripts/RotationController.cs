@@ -7,7 +7,6 @@ public class RotationController : MonoBehaviour
 {
     [Header("Rotation Settings")]
     [SerializeField] private float rotationSpeed = 1f;
-    // public static int diceResult;
     [SerializeField] private GameObject blackHole;
 
     private bool isMoving = false;
@@ -135,6 +134,7 @@ public class RotationController : MonoBehaviour
                 return;
         }
 
+        // Call event
         EventManager.SendDiceResult();
     }
 }

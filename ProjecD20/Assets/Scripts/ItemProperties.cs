@@ -21,6 +21,7 @@ public class ItemProperties : MonoBehaviour
         itemNameField.text = itemName;
     }
 
+    // Sets values to text fields with a sign
     void SetBonusField()
     {
         if (itemBonus >= 0)

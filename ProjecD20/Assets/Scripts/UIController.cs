@@ -11,4 +11,10 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    // Closes tje game
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

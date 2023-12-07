@@ -48,7 +48,7 @@ public class SpiralMovement : MonoBehaviour
             transform.forward = direction;
         }
         // To prevent constant moving and shaking check the distance
-        if (direction.magnitude <= 0.3f)
+        if (direction.magnitude <= 0.5)
         {
             spiralMovement = false;
             transform.position = Vector3.MoveTowards(transform.position, blackHole.transform.position, distanceThisFrame);
